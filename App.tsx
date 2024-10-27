@@ -1,32 +1,28 @@
-import { StatusBar } from 'expo-status-bar';
-import { Alert, Button, SafeAreaView, Text, View } from 'react-native';
+import { NavigationContainer } from '@react-navigation/native';
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
+import { HomeScreen } from './components/HomeScreen';
+import { ProductsScreen } from './components/ProductsScreen';
+import { CartContextProvider } from './hooks/CardContext';
+
+const Stack = createNativeStackNavigator()
+const queryClient = new QueryClient()
 
 export default function App() {
-
-    const handleButton = () => {
-        Alert.alert(
-            'Question',
-            'Are you sure you want to proceed?',
-            [
-                {
-                    text: 'Yes',
-                    onPress: () => console.log('Yes pressed'),
-                },
-            ],
-            { cancelable: false } // kein Tap auf den Hintergrund zum Schließen
-        )
-    }
-
     return (
-        <SafeAreaView className="flex-1 bg-gray-200 items-center justify-center">
-            <View className="flex-1 w-full bg-gray-200 items-center justify-center">
-                <Text className="text-4xl">Hello World</Text>
-                <View className="py-4">
-                    <Button onPress={handleButton} title="Click me"></Button>
-                </View>
-                <StatusBar style="auto" />
-            </View>
-        </SafeAreaView>
+        <QueryClientProvider client={queryClient}>
+            <CartContextProvider>
+                <NavigationContainer>
+                    <Stack.Navigator
+                        screenOptions={{
+                            headerShown: false // Hide default header since we're using our custom StatusBar
+                        }}>
+                        <Stack.Screen name="Home" component={HomeScreen} />
+                        <Stack.Screen name="Products" component={ProductsScreen} />
+                    </Stack.Navigator>
+                </NavigationContainer>
+            </CartContextProvider>
+        </QueryClientProvider>
     )
 }
 
