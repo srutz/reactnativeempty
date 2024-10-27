@@ -1,32 +1,29 @@
 import { StatusBar } from 'expo-status-bar';
-import { Alert, Button, SafeAreaView, Text, View } from 'react-native';
+import { NativeWindStyleSheet } from 'nativewind';
+import { View } from 'react-native';
+import { SafeAreaProvider, SafeAreaView } from 'react-native-safe-area-context';
+import { PullToRefreshFlatList } from './components/PullToRefreshFlatList';
+import { PullToRefreshList } from './components/PullToRefreshList';
+
+NativeWindStyleSheet.setOutput({
+    default: "native",
+})
+
 
 export default function App() {
 
-    const handleButton = () => {
-        Alert.alert(
-            'Question',
-            'Are you sure you want to proceed?',
-            [
-                {
-                    text: 'Yes',
-                    onPress: () => console.log('Yes pressed'),
-                },
-            ],
-            { cancelable: false } // kein Tap auf den Hintergrund zum Schließen
-        )
-    }
-
+    const flatList = true
     return (
-        <SafeAreaView className="flex-1 bg-gray-200 items-center justify-center">
-            <View className="flex-1 w-full bg-gray-200 items-center justify-center">
-                <Text className="text-4xl">Hello World</Text>
-                <View className="py-4">
-                    <Button onPress={handleButton} title="Click me"></Button>
+        <SafeAreaProvider>
+            <SafeAreaView className="flex-1 bg-gray-200 items-center justify-center" >
+                <View className="flex-1 w-full bg-gray-200 items-center justify-center">
+                    {flatList
+                        ? <PullToRefreshFlatList></PullToRefreshFlatList>
+                        : <PullToRefreshList></PullToRefreshList>}
+                    <StatusBar style="auto" />
                 </View>
-                <StatusBar style="auto" />
-            </View>
-        </SafeAreaView>
+            </SafeAreaView>
+        </SafeAreaProvider>
     )
 }
 
