@@ -7,7 +7,7 @@ export function RatingStars( { stars, maxStars = 5}: { stars: number, maxStars?:
     const l: ReactNode[] = []
     for (let i = 0; i < maxStars; i++) {
         const active = i < stars
-        l.push(<MaterialIcons name="star" size={20} color={active ? "gold" : "gray"} />)
+        l.push(<MaterialIcons key={"start" + (i + 1)} name="star" size={20} color={active ? "gold" : "gray"} />)
     }
     return (
         <View className="flex-row">
