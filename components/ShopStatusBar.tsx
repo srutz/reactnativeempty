@@ -33,16 +33,18 @@ export function ShopStatusBar({ title}: ShopStatusBarProps) {
                     </TouchableOpacity>
                     <Text className="text-sm text-gray-700">{title}</Text>
                 </View>
-                <View className="relative p-2">
-                    <MaterialIcons name="shopping-cart" size={32}  />
-                    {count > 0 && (
-                        <View className="absolute -top-1 -right-1 bg-red-500 rounded-full min-w-[20px] h-[20px] flex items-center justify-center">
-                            <Text className="text-white text-xs font-bold px-1">
-                                {count > 99 ? '99+' : count}
-                            </Text>
-                        </View>
-                    )}
-                </View>
+                <TouchableOpacity onPress={() => navigation.navigate("ManageCart")}>
+                    <View className="relative p-2">
+                        <MaterialIcons name="shopping-cart" size={32}  />
+                        {count > 0 && (
+                            <View className="absolute -right-1 bg-red-500 rounded-full min-w-[20px] h-[20px] flex items-center justify-center">
+                                <Text className="text-white text-xs font-bold px-1">
+                                    {count > 99 ? '99+' : count}
+                                </Text>
+                            </View>
+                        )}
+                    </View>
+                </TouchableOpacity>
             </View>
         </View>
     )

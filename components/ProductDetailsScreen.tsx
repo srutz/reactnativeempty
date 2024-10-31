@@ -30,15 +30,24 @@ export function ProductDetailsScreen() {
 
                     <ScrollView>
                         <View className="items-center shadow-lg shadow-black rounded-lg bg-white p-4 mb-4 mt-4 ml-3 mr-3">
-                            <ScrollView horizontal>
-                                {
-                                    product.images.map((image, index) => (
-                                        <View className="w-screen items-center justify-center p-4">
-                                            <Image key={index} source={{ uri: image }} className="w-60 h-60" />
-                                        </View>
-                                    ))
-                                }
-                            </ScrollView>
+                            {product.images.length > 1
+                                ? (
+                                    <ScrollView horizontal>
+                                        {
+                                            product.images.map((image, index) => (
+                                                <View key={index} className="w-screen items-center justify-center p-4">
+                                                    <Image source={{ uri: image }} className="w-60 h-60" />
+                                                </View>
+                                            ))
+                                        }
+                                    </ScrollView>
+                                )
+                                : (
+                                    <View className="w-screen items-center justify-center p-4">
+                                        <Image source={{ uri: product.images[0] }} className="w-60 h-60" />
+                                    </View>
+                                )}
+
 
                             <View className="flex-row self-stretch justify-between items-center">
 
@@ -81,7 +90,7 @@ export function ProductDetailsScreen() {
                                     </View>
                                 </View>
                             </View>
-                            <View className="flex-row self-stretch mt-4 justify-between">
+                            <View className="self-stretch mt-4 ">
                                 <Button onPress={handleAdd} title="In den Warenkorb"></Button>
                             </View>
                         </View>
