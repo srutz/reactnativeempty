@@ -3,6 +3,7 @@ import { useQuery } from "@tanstack/react-query";
 import { useState } from "react";
 import { FlatList, Text, TextInput, View } from "react-native";
 import { SafeAreaProvider, SafeAreaView } from "react-native-safe-area-context";
+import { PagerPanel } from "./PagerPanel";
 import { ProductPanel } from "./ProductPanel";
 import { ShopStatusBar } from "./ShopStatusBar";
 import { ProductsResponse } from "./Types";
@@ -40,6 +41,7 @@ export function ProductsScreen() {
 
     /* move response to data */
     const products = data?.products || []
+    const pageCount = Math.ceil((data?.total ?? 0) / PAGESIZE)
  
     return (
         <SafeAreaProvider>
@@ -62,6 +64,9 @@ export function ProductsScreen() {
                                 <FlatList data={products}
                                     keyExtractor={(product) => product.id.toString()}
                                     renderItem={({ item: product }) => (<ProductPanel product={product} />)}
+                                    ListFooterComponent={pageCount > 1 
+                                        ? (<PagerPanel page={page} pageCount={pageCount} setPage={setPage} />)
+                                        : undefined}
                                 />
                             </>
                         )}
@@ -69,4 +74,4 @@ export function ProductsScreen() {
             </SafeAreaView>
         </SafeAreaProvider>
     )
-}
+} 
