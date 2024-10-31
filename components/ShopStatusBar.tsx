@@ -11,13 +11,14 @@ type ShopStatusBarProps = {
 }
 
 export function ShopStatusBar({ title}: ShopStatusBarProps) {
-    const cart = useCartContext()!
+    const cart = useCartContext()
     const navigation = useNavigation<any>()
 
     const statusBarHeight = Platform.OS === 'ios' ? Constants.statusBarHeight : 0
     const handleHome = () => {
         navigation.navigate("Home")
     }
+    const count = cart.getItemCount()
 
     return (
         <View
@@ -34,10 +35,10 @@ export function ShopStatusBar({ title}: ShopStatusBarProps) {
                 </View>
                 <View className="relative p-2">
                     <MaterialIcons name="shopping-cart" size={32}  />
-                    {cart.items.length > 0 && (
+                    {count > 0 && (
                         <View className="absolute -top-1 -right-1 bg-red-500 rounded-full min-w-[20px] h-[20px] flex items-center justify-center">
                             <Text className="text-white text-xs font-bold px-1">
-                                {cart.items.length > 99 ? '99+' : cart.items.length}
+                                {count > 99 ? '99+' : count}
                             </Text>
                         </View>
                     )}
