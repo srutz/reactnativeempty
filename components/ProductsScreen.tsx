@@ -7,13 +7,14 @@ import { PagerPanel } from "./PagerPanel";
 import { ProductPanel } from "./ProductPanel";
 import { ShopStatusBar } from "./ShopStatusBar";
 import { ProductsResponse } from "./Types";
+import { SafeContainer } from "./SafeContainer";
 
 export const PAGESIZE = 50
 
 export function ProductsScreen() {
     const navigation = useNavigation()
 
-    const [refreshing, setRefreshing] = useState(false)  
+    const [refreshing, setRefreshing] = useState(false)
     const [page, setPage] = useState(1)
     const [searchQuery, setSearchQuery] = useState("")
 
@@ -49,42 +50,40 @@ export function ProductsScreen() {
     }, [searchQuery])
 
     return (
-        <SafeAreaProvider>
-            <SafeAreaView className="flex-1 w-full">
-                <View className="flex-1 bg-gray-100">
-                    <ShopStatusBar
-                        title="Unsere Produkte"
-                    />
-                    {isPending
-                        ? (<Text>Loading...</Text>)
-                        : (
-                            <>
-                                <TextInput
-                                    className="h-10 mx-3 my-3 px-4 border border-gray-300 rounded-lg"
-                                    placeholder="Search..."
-                                    value={searchQuery}
-                                    onChangeText={setSearchQuery}
-                                    clearButtonMode="while-editing"
-                                />
-                                <FlatList data={products}
-                                    keyExtractor={(product) => product.id.toString()}
-                                    renderItem={({ item: product }) => (<ProductPanel product={product} />)}
-                                    ListFooterComponent={pageCount > 1
-                                        ? (<PagerPanel page={page} pageCount={pageCount} setPage={setPage} />)
-                                        : undefined}
-                                    refreshControl={
-                                        <RefreshControl
-                                            refreshing={refreshing}
-                                            onRefresh={refetch}
-                                            colors={['#2196F3']} // Android
-                                            tintColor="#2196F3" // iOS
-                                        />
-                                    }
-                                />
-                            </>
-                        )}
-                </View>
-            </SafeAreaView>
-        </SafeAreaProvider>
+        <SafeContainer>
+            <View className="flex-1 bg-gray-100">
+                <ShopStatusBar
+                    title="Unsere Produkte"
+                />
+                {isPending
+                    ? (<Text>Loading...</Text>)
+                    : (
+                        <>
+                            <TextInput
+                                className="h-10 mx-3 my-3 px-4 border border-gray-300 rounded-lg"
+                                placeholder="Search..."
+                                value={searchQuery}
+                                onChangeText={setSearchQuery}
+                                clearButtonMode="while-editing"
+                            />
+                            <FlatList data={products}
+                                keyExtractor={(product) => product.id.toString()}
+                                renderItem={({ item: product }) => (<ProductPanel product={product} />)}
+                                ListFooterComponent={pageCount > 1
+                                    ? (<PagerPanel page={page} pageCount={pageCount} setPage={setPage} />)
+                                    : undefined}
+                                refreshControl={
+                                    <RefreshControl
+                                        refreshing={refreshing}
+                                        onRefresh={refetch}
+                                        colors={['#2196F3']} // Android
+                                        tintColor="#2196F3" // iOS
+                                    />
+                                }
+                            />
+                        </>
+                    )}
+            </View>
+        </SafeContainer>
     )
 } 
