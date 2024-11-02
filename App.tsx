@@ -19,13 +19,11 @@ export default function App() {
 
     return (
         <SafeAreaView className="flex-1 bg-gray-200 items-center justify-center">
-            <View className="flex-1 w-full bg-gray-200 items-center justify-center">
-                <Text className="text-4xl">Hello World</Text>
-                <View className="py-4">
-                    <Button onPress={handleButton} title="Click me"></Button>
-                </View>
-                <StatusBar style="auto" />
-            </View>
+            <View className="bg-red-500"><Text>Red</Text></View>
+            <View className="bg-green-500"><Text>Green</Text></View>
+            <View className="bg-blue-500"><Text>Blue</Text></View>
+            <View className="bg-yellow-500"><Text>Yellow</Text></View>
+            <View className="bg-pink-500"><Text>Pink</Text></View>
         </SafeAreaView>
     )
 }
