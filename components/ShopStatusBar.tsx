@@ -23,7 +23,7 @@ export function ShopStatusBar({ title}: ShopStatusBarProps) {
     return (
         <View
             className="w-full bg-white border-b border-gray-200 items-center justify-between px-4"
-            style={{ height: statusBarHeight ? statusBarHeight + 50 : 50 }}
+            style={{ height: statusBarHeight ? statusBarHeight : 50 }}
         >
             <StatusBar style="dark" />
             <View className="h-[50px] w-full flex-row items-center justify-between px-2 mt-auto">
