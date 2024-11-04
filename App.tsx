@@ -20,13 +20,36 @@ export default function App() {
     }
 
     return (
-        <SafeAreaView className="flex-1 bg-gray-200 flex flex-col items-center justify-center">
-            <TitleView title="Hello World">
-                <Text>Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. </Text>
-            </TitleView>
+        <SafeAreaView className="flex-1 bg-gray-500 flex flex-col items-center justify-center">
+            <Sprichwort sprichwort='Der frühe Vogel fängt den Wurm'></Sprichwort>
+            <Sprichwort sprichwort='Wer billig kauft der kauft zweimal'></Sprichwort>
         </SafeAreaView>
     )
 }
+
+function Sprichwort(props: { sprichwort: string}) {
+    const words = props.sprichwort.split(" ")
+    const [phase,setPhase] = useState(false)
+
+    console.log("re-render")
+    return (
+        <View className="bg-white p-8 rounded-lg flex flex-col items-center mb-4">
+            {words.map( (word,index) => (
+                <Animatable.Text 
+                    animation={phase ? "bounceInLeft" : "bounceOutRight" }
+                    duration={350}
+                    delay={100 + (index * 100)}
+                    key={index + (phase ? 100 : 0)} className="text-2xl uppercase">
+                        {word}</Animatable.Text>) 
+                )
+            }
+            <View className="mt-8">
+                <Button title="Toggle" onPress={() => setPhase(!phase)}></Button>
+            </View>
+        </View>
+    )
+}
+
 
 
 
@@ -38,17 +61,17 @@ type TitleViewProps = {
 
 function TitleView( { title,children } : TitleViewProps) {
     const [open, setOpen] = useState(true)
+    console.log("rendering TitleView, open=", open)
+
+    // call webservice um daten zu laden
     return (
-        <View 
-                className="w-100 self-start p-4 rounded-lg shadow-black shadow-lg flex flex-col gap-2 bg-white m-4 overflow-hidden">
+        <View className="w-100 self-start p-4 rounded-lg flex flex-col gap-2 bg-white m-4 overflow-hidden">
             <View>
                 <TouchableOpacity onPress={() => setOpen(!open)}>
                     <Text className="text-xl font-semibold">{title}</Text>
                 </TouchableOpacity>
             </View>
-            <Animatable.View className="overflow-hidden" animation={open ? 'bounceInLeft' : 'bounceOutDown'}>
-                {children}
-            </Animatable.View>
+            {open && children}
         </View>
     )
 }
