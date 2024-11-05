@@ -1,6 +1,6 @@
 import { StatusBar } from 'expo-status-bar';
 import { ReactNode } from 'react';
-import { Alert, Button, Image, SafeAreaView, ScrollView, Text, View } from 'react-native';
+import { Alert, Button, Image, SafeAreaView, ScrollView, Text, TextStyle, View } from 'react-native';
 
 const mainProduct = {
     images: [
@@ -13,9 +13,18 @@ const mainProduct = {
     title: "Sessel",
     description: "Dieser Sessel ist ein super komfortabler Sessel, der Ihnen ein tolles Sitzerlebnis bescheren wird." + "Dieser Sessel ist ein super komfortabler Sessel, der Ihnen ein tolles Sitzerlebnis bescheren wird.",
     stockAmount: 6,
-    rating: 3,
+    rating: 4,
+} satisfies ProductType
+
+//type ProductType = typeof mainProduct
+type ProductType = {
+    images: string[];
+    price: number;
+    title: string;
+    description: string;
+    stockAmount: number;
+    rating: 1 | 2 | 3 | 4 | 5;
 }
-type ProductType = typeof mainProduct
 
 /* format number as german money, using intl */
 function formatGermanMoney(price: number) {
@@ -40,14 +49,16 @@ type ProductViewPropsType = {
     product: ProductType
 }
 
+
+
 function ProductView(props: ProductViewPropsType) {
     const { product } = props
     return (
-        <View className="bg-white p-4 mb-4 mx-4 w-[84%] h-[350] rounded-lg">
-            <ScrollView className="" horizontal>
+        <View className="bg-white p-4 mb-4 mx-4 w-[84%] h-[440] rounded-lg">
+            <ScrollView className="" horizontal overScrollMode='always'>
                 {
                     product.images.map( (image,index) => (
-                        <View className="bg-gray-200 rounded-lg m-2">
+                        <View className="bg-gray-200 rounded-lg m-2 mb-4">
                             <Image className="h-32 w-32" resizeMode="contain" source={{ uri: image }} ></Image>
                         </View>
                     ))
