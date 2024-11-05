@@ -1,5 +1,6 @@
 import { StatusBar } from 'expo-status-bar';
 import { Alert, Button, SafeAreaView, Text, View } from 'react-native';
+import { SafeContainer } from './components/SafeContainer';
 
 export default function App() {
 
@@ -18,15 +19,15 @@ export default function App() {
     }
 
     return (
-        <SafeAreaView className="flex-1 bg-gray-200 items-center justify-center">
-            <View className="flex-1 w-full bg-gray-200 items-center justify-center">
+        <SafeContainer>
+            <View className="flex-1 w-full bg-gray-200 items-center justify-start">
                 <Text className="text-4xl">Hello World</Text>
                 <View className="py-4">
                     <Button onPress={handleButton} title="Click me"></Button>
                 </View>
                 <StatusBar style="auto" />
             </View>
-        </SafeAreaView>
+        </SafeContainer>
     )
 }
 
