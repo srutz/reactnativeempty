@@ -3,7 +3,7 @@ import { ReactNode } from 'react';
 import { Alert, Button, Image, SafeAreaView, ScrollView, Text, View } from 'react-native';
 
 const mainProduct = {
-    image: [
+    images: [
         "https://cdn.dummyjson.com/products/images/furniture/Knoll%20Saarinen%20Executive%20Conference%20Chair/thumbnail.png",
         "https://cdn.dummyjson.com/products/images/furniture/Annibale%20Colombo%20Sofa/thumbnail.png",
         "https://cdn.dummyjson.com/products/images/groceries/Cat%20Food/thumbnail.png",
@@ -43,12 +43,17 @@ type ProductViewPropsType = {
 function ProductView(props: ProductViewPropsType) {
     const { product } = props
     return (
-        <View className="bg-white p-4 mb-4 mx-4 w-[80%] h-[350] rounded-lg">
-            <View className="flex flex-row justify-between">
-                <View className="bg-gray-200 rounded-lg m-2">
-                    <Image className="h-32 w-32" resizeMode="contain" source={{ uri: product.image }} ></Image>
-                </View>
-            </View>
+        <View className="bg-white p-4 mb-4 mx-4 w-[84%] h-[350] rounded-lg">
+            <ScrollView className="" horizontal>
+                {
+                    product.images.map( (image,index) => (
+                        <View className="bg-gray-200 rounded-lg m-2">
+                            <Image className="h-32 w-32" resizeMode="contain" source={{ uri: image }} ></Image>
+                        </View>
+                    ))
+                }                
+
+            </ScrollView>
             <View className="mb-2"><Text className="font-bold">{product.title}</Text></View>
             <View className="flex-1 mb-2">
                 <Text numberOfLines={4}>{product.description}</Text>
