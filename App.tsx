@@ -58,7 +58,7 @@ function ProductView(props: ProductViewPropsType) {
             <ScrollView className="" horizontal overScrollMode='always'>
                 {
                     product.images.map( (image,index) => (
-                        <View className="bg-gray-200 rounded-lg m-2 mb-4">
+                        <View key={index} className="bg-gray-200 rounded-lg m-2 mb-4 flex flex-row items-center">
                             <Image className="h-32 w-32" resizeMode="contain" source={{ uri: image }} ></Image>
                         </View>
                     ))
