@@ -1,4 +1,4 @@
-import { FlatList, Text, TextInput, TouchableOpacity, View } from 'react-native';
+import { FlatList, SectionList, Text, TextInput, TouchableOpacity, View } from 'react-native';
 import { SafeContainer } from './components/SafeContainer';
 import { quotes } from "./components/quotes"
 import { StatusBar } from 'expo-status-bar';
@@ -14,39 +14,55 @@ type Quote = {
     author: string,
 }
 
+type Section = {
+    title: string,
+    data: Quote[]
+}
 
 export default function App() {
-    const [author, setAuthor] = useState("")
+    const qs = [...quotes]
 
-    let qs = copyArray(quotes)
-    if (author.length > 0) {
-        qs = qs.filter((q) => q.author == author)
+    /* array von sections
+     * section: title, data[] */
+
+    /* build a map of quotes per author */
+    const authorquotes = new Map<string,Quote[]>()
+    for (const q of qs) {
+        let quotes = authorquotes.get(q.author)
+        if (!quotes) {
+            quotes = []
+            authorquotes.set(q.author, quotes)
+        }
+        if (quotes.length < 5)
+            quotes.push(q)
     }
 
-    const handlePress = (item: Quote) => {
-        setAuthor(item.author == author ? "" : item.author)
+    const sections: Section[] = []
+    for (const author of authorquotes.keys()) {
+        sections.push({
+            title: author,
+            data: authorquotes.get(author) ?? []
+        })
     }
-    console.log("rendering with author: " + author)
+    console.log(JSON.stringify(sections, null, 4))
 
     return (
         <SafeContainer>
-            <View className="h-12 m-4 bg-gray-200 flex flex-row">
-                <TextInput className="grow border border-gray-300 px-2" editable={false} placeholder='Autor eingeben'>
-                    {author}
-                </TextInput>
-            </View>
-            <FlatList
+            <SectionList
                 className="bg-gray-200"
-                data={qs}
+                sections={sections}
                 keyExtractor={(item) => item.id.toString()}
                 renderItem={(info) => (
                     <View className="mx-4 mt-2 p-4 bg-white rounded-lg">
                         <Text>{info.item.quote}</Text>
-                        <TouchableOpacity onPress={() => handlePress(info.item)}>
-                            <Text className="self-end text-xs mt-2 text-gray-600">
-                                {info.item.author}
-                            </Text>
-                        </TouchableOpacity>
+                        <Text className="self-end text-xs mt-2 text-gray-600">
+                            {info.item.author}
+                        </Text>
+                    </View>
+                )}
+                renderSectionHeader={ (info) => (
+                    <View className="mt-6 flex flex-row justify-end pr-4">
+                        <Text className="font-bold text-lg">{info.section.title}</Text>
                     </View>
                 )}
             />
