@@ -2,7 +2,9 @@ import { FlatList, SectionList, Text, TextInput, TouchableOpacity, View } from '
 import { SafeContainer } from './components/SafeContainer';
 import { quotes } from "./components/quotes"
 import { StatusBar } from 'expo-status-bar';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
+
+import * as ScreenOrientation from 'expo-screen-orientation'
 
 
 function copyArray<T>(a: T[]) {
@@ -20,6 +22,12 @@ type Section = {
 }
 
 export default function App() {
+
+    useEffect(() => {
+        ScreenOrientation.unlockAsync()
+    }, [])
+
+
     const qs = [...quotes]
 
     /* array von sections
@@ -44,7 +52,7 @@ export default function App() {
             data: authorquotes.get(author) ?? []
         })
     }
-    console.log(JSON.stringify(sections, null, 4))
+    //console.log(JSON.stringify(sections, null, 4))
 
     return (
         <SafeContainer>
@@ -54,7 +62,7 @@ export default function App() {
                 keyExtractor={(item) => item.id.toString()}
                 renderItem={(info) => (
                     <View className="mx-4 mt-2 p-4 bg-white rounded-lg">
-                        <Text>{info.item.quote}</Text>
+                        <Text selectable>{info.item.quote}</Text>
                         <Text className="self-end text-xs mt-2 text-gray-600">
                             {info.item.author}
                         </Text>
