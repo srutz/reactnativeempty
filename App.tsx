@@ -52,8 +52,8 @@ export default function App() {
             data: authorquotes.get(author) ?? []
         })
     }
-    //console.log(JSON.stringify(sections, null, 4))
-
+    const isHermes = () => !!(global as any).HermesInternal;
+    console.log("isHermes", isHermes())
     return (
         <SafeContainer>
             <SectionList
