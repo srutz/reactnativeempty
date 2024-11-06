@@ -3,16 +3,10 @@ import { Alert, Button, SafeAreaView, Text, View } from 'react-native';
 import { SafeContainer } from './components/SafeContainer';
 import { useEffect, useState } from 'react';
 import { useCounter } from './hooks/useCounter';
-import { useInterval } from './hooks/useInterval';
-import { useForceRender } from './hooks/useForceRender';
 
 
 export default function App() {
-    const forceRender = useForceRender()
-    useInterval(() => {
-        console.log("sessionping " + new Date().toLocaleString())
-        forceRender()
-    }, 5_000)
+    useCounter(750)
     const handleButton = () => {
     }
     console.log("---rendering App " + new Date().toLocaleString())
