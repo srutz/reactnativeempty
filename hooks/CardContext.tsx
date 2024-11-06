@@ -1,7 +1,7 @@
 import { createContext, ReactNode, useContext, useState } from "react"
 import { Product } from "../components/Types"
 
-
+// 1. Typ für Context definieren
 export type ProductCartItem = {
     product: Product
     count: number
@@ -14,8 +14,10 @@ export type CartContextType = {
     getItemCount: () => number
 }
 
+// 2. Global den Context mit createContext anlegen
 export const CartContext = createContext<CartContextType | undefined>(undefined)
 
+// 3. Provider Komponente definieren
 export function CartContextProvider({ children }: { children: ReactNode }) {
     const [items, setItems] = useState<ProductCartItem[]>([])
 
@@ -52,6 +54,7 @@ export function CartContextProvider({ children }: { children: ReactNode }) {
     )
 }
 
+// 4. useCountContext helper-funktion
 export function useCartContext() {
     const context = useContext(CartContext)
     if (!context) {
