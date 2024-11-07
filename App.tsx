@@ -1,5 +1,6 @@
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import { HomeScreen } from './components/screens/HomeScreen';
 import { ProductDetails } from './components/screens/ProductDetails';
 import { ProductsScreen } from './components/screens/ProductsScreen';
@@ -16,13 +17,15 @@ export type ScreenTypes = {
 
 export default function App() {
     return (
-        <NavigationContainer>
-            <Stack.Navigator >
-            <Stack.Screen name="Home" component={HomeScreen} />
-            <Stack.Screen name="Products" component={ProductsScreen} />
-            <Stack.Screen name="ProductDetails" component={ProductDetails} />
-            </Stack.Navigator>
-        </NavigationContainer>
+        <GestureHandlerRootView>
+            <NavigationContainer>
+                <Stack.Navigator >
+                    <Stack.Screen name="Home" component={HomeScreen} />
+                    <Stack.Screen name="Products" component={ProductsScreen} />
+                    <Stack.Screen name="ProductDetails" component={ProductDetails} />
+                </Stack.Navigator>
+            </NavigationContainer>
+        </GestureHandlerRootView>
     )
 }
 
