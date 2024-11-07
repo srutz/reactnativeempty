@@ -1,6 +1,7 @@
-import { useNavigation } from "@react-navigation/native";
+import { NavigationProp, useNavigation } from "@react-navigation/native";
 import { useEffect, useState } from "react";
 import { FlatList, Image, Pressable, Text, View } from "react-native";
+import { ScreenTypes } from "../../App";
 import { Product, ProductsResponse } from "../Types";
 
 export function ProductsScreen() {
@@ -24,9 +25,9 @@ export function ProductsScreen() {
 
 /* Rendert das übergebene Product */
 function ProductsItem({ product } : { product: Product}) {
-    const nav = useNavigation()
+    const nav = useNavigation<NavigationProp<ScreenTypes>>()
     const handleButton = () => {
-        nav.navigate("ProductDetails")
+        nav.navigate("ProductDetails", { product: product })
     }
     return (
         <View className="flex flex-row p-2 m-3 bg-white rounded-xl border border-gray-300 shadow shadow-black">
