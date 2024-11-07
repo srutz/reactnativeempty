@@ -1,5 +1,7 @@
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import * as ScreenOrientation from 'expo-screen-orientation';
+import { useEffect } from 'react';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import { HomeScreen } from './components/screens/HomeScreen';
 import { ProductDetails } from './components/screens/ProductDetails';
@@ -16,6 +18,9 @@ export type ScreenTypes = {
 
 
 export default function App() {
+    useEffect(() => {
+        ScreenOrientation.unlockAsync()
+    }, [])
     return (
         <GestureHandlerRootView>
             <NavigationContainer>

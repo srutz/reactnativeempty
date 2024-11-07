@@ -3,7 +3,7 @@
     "name": "reactnativeempty",
     "slug": "reactnativeempty",
     "version": "1.0.0",
-    "orientation": "portrait",
+    "orientation": "any",
     "icon": "./assets/icon.png",
     "userInterfaceStyle": "light",
     "splash": {
