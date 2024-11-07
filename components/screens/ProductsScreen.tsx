@@ -5,6 +5,7 @@ import { Product, ProductsResponse } from "../Types";
 export function ProductsScreen() {
     const [products, setProducts] = useState<Product[]>([])
     useEffect(() => {
+        /* lade die produkte und setze den State */
         const loader = async () => {
             const response = await fetch("https://dummyjson.com/products?limit=" + encodeURIComponent(250))
             const data = await response.json() as ProductsResponse
@@ -39,11 +40,12 @@ function ProductsItem({ product } : { product: Product}) {
     )
 }
 
+/* Eigener Button */
 function MyButton({ title, onPress }: { title: string, onPress: () => void}) {
     return (
         <Pressable onPress={onPress}>
             <View className="bg-blue-700 px-2 py-1 rounded m-1">
-                <Text className="uppercase text-sm text-white">{title}</Text>
+                <Text className="uppercase text-sm text-white tracking-tight font-semibold">{title}</Text>
             </View>
         </Pressable>
     )
