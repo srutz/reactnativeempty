@@ -5,29 +5,42 @@ import { ScreenTypes } from "../../App";
 import { Product, ProductsResponse } from "../Types";
 
 export function ProductsScreen() {
-    const PAGESIZE = 10
+    const PAGESIZE = 3
     const [products, setProducts] = useState<Product[]>([])
     const [total, setTotal] = useState(0)
+    const [page, setPage] = useState(1)
+    const [trigger, setTrigger] = useState(false)
     useEffect(() => {
         /* lade die produkte und setze den State */
         const loader = async () => {
-            const response = await fetch("https://dummyjson.com/products?limit=" + encodeURIComponent(PAGESIZE))
+            const response = await fetch("https://dummyjson.com/products"
+                + "?limit=" + encodeURIComponent(PAGESIZE)
+                + "&skip=" + encodeURIComponent(PAGESIZE * (page - 1))
+            )
             const data = await response.json() as ProductsResponse
             setProducts(data.products)
             setTotal(data.total)
-            console.log(data.total)
         }
         loader()
-    }, [])
+    }, [ page, trigger ])
     const pageCount = Math.ceil(total / PAGESIZE)
     return (
-        <FlatList data={products}
-            keyExtractor={(product) => product.id.toString()}
-            renderItem={(info) => (<ProductsItem product={info.item} />) }
-            ListFooterComponent={(
-                <Text>{pageCount}</Text>
-            )}
-        ></FlatList>
+        <View className="flex-1 flex flex-col">
+            <View className="flex flex-row justify-center p-2 gap-4">
+                <Pressable onPress={() => setPage(page - 1)}>   
+                    <Text>Prev</Text>
+                </Pressable>
+                <Text>Seite: {page} von {pageCount}</Text>
+                <Pressable onPress={() => setPage(page + 1)}>
+                    <Text>Next</Text>
+                </Pressable>
+            </View>
+            <FlatList className="flex-1"
+                data={products}
+                keyExtractor={(product) => product.id.toString()}
+                renderItem={(info) => (<ProductsItem product={info.item} />) }
+            ></FlatList>
+        </View>
     )
 }
 
