@@ -10,10 +10,13 @@ import { useScreenOrientation } from "../../hooks/useScreenOrientation";
 import berlinBreit from "../../assets/berlinbreit.jpg";
 import berlinHoch from "../../assets/berlinhoch.jpg";
 
+import BottomSheet, { BottomSheetView } from "@gorhom/bottom-sheet";
+
+
 
 
 export function HomeScreen() {
-    const nav = useNavigation<NavigationProp<ScreenTypes>>();
+    const nav = useNavigation<NavigationProp<ScreenTypes>>()
     const dimension = useDimension()  // wir bekommen die aktuelle Größe und sind reaktiv
     const orientation = useScreenOrientation() // wir bekommen die orientation und sind reaktiv
 
@@ -36,6 +39,13 @@ export function HomeScreen() {
             <View className="mt-4 mb-2">
                 <Button title="Go to products" onPress={handleButton}></Button>
             </View>
+            <BottomSheet>
+                <BottomSheetView style={{ flex: 1 }}>
+                    <View className="mt-4 mb-2">
+                        <Button title="Go to products" onPress={handleButton}></Button>
+                    </View>
+                </BottomSheetView>
+            </BottomSheet>
         </View>
     )
 }
