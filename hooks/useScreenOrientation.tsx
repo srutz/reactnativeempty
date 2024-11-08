@@ -12,6 +12,7 @@ export function useScreenOrientation() {
         const listener = async () => {
             const o = await getOrientationAsync()
             setOrientation(o)
+            console.log("orienataion", o)
         }
         listener()  // wert einmalig setzen
         const subscription = addOrientationChangeListener(listener)
