@@ -7,8 +7,10 @@ import { useDimension } from "../../hooks/useDimension";
 import { useScreenOrientation } from "../../hooks/useScreenOrientation";
 
 
-const berlinBreit = require("../../assets/berlinbreit.jpg")
-const berlinHoch = require("../../assets/berlinhoch.jpg")
+import berlinBreit from "../../assets/berlinbreit.jpg";
+import berlinHoch from "../../assets/berlinhoch.jpg";
+
+
 
 export function HomeScreen() {
     const nav = useNavigation<NavigationProp<ScreenTypes>>();
@@ -20,18 +22,20 @@ export function HomeScreen() {
     }
 
     return (
-        <View className="flex-1 flex flex-col ustify-center items-center py-4">
+        <View className="flex-1 flex flex-col justify-center items-center py-4">
             <View className="w-full h-1 grow flex flex-col overflow-hidden">
                 {orientation == Orientation.LANDSCAPE_LEFT || orientation == Orientation.LANDSCAPE_RIGHT
                 ? <Animatable.Image 
                     animation="bounceInDown"
-                    className="w-full flex-1" resizeMode="contain" source={berlinBreit} />
+                    className="w-full flex-1" resizeMode="cover" source={berlinBreit} />
                 : <Animatable.Image 
                     animation="bounceInUp"
-                    className="w-full flex-1" resizeMode="contain" source={berlinHoch} />
+                    className="w-full flex-1" resizeMode="cover" source={berlinHoch} />
                 }
             </View>
-            <Button title="Go to products" onPress={handleButton}></Button>
+            <View className="mt-4 mb-2">
+                <Button title="Go to products" onPress={handleButton}></Button>
+            </View>
         </View>
     )
 }
