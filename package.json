@@ -1,7 +1,7 @@
 {
   "name": "reactnativeempty",
   "version": "1.0.0",
-  "main": "expo/AppEntry.js",
+  "main": "expo-router/entry",
   "scripts": {
     "start": "expo start -c",
     "android": "expo start --android -c",
@@ -13,6 +13,7 @@
     "@react-navigation/native": "^6.1.18",
     "@react-navigation/native-stack": "^6.11.0",
     "expo": "~51.0.28",
+    "expo-router": "^3.5.23",
     "expo-screen-orientation": "~7.0.5",
     "expo-status-bar": "~1.12.1",
     "nativewind": "^2.0.11",
