@@ -1,18 +1,20 @@
-import * as ScreenOrientation from "expo-screen-orientation"
-import { useEffect, useState } from "react"
+import { addOrientationChangeListener, getOrientationAsync, Orientation } from "expo-screen-orientation";
+import { useEffect, useState } from "react";
+
+
 
 export function useScreenOrientation() {
 
-    const[orientation,setOrientation] = useState<ScreenOrientation.Orientation>()
+    const[orientation,setOrientation] = useState<Orientation>()
 
     useEffect(() => {
         /* registration */
         const listener = async () => {
-            const o = await ScreenOrientation.getOrientationAsync()
+            const o = await getOrientationAsync()
             setOrientation(o)
         }
         listener()  // wert einmalig setzen
-        const subscription = ScreenOrientation.addOrientationChangeListener(listener)
+        const subscription = addOrientationChangeListener(listener)
         return () => {
             /* cleanup */
             subscription.remove()
@@ -21,17 +23,17 @@ export function useScreenOrientation() {
     return orientation
 }
 
-export function orientationToString(orientation?: ScreenOrientation.Orientation) {
+export function orientationToString(orientation?: Orientation) {
     switch(orientation) {
-        case ScreenOrientation.Orientation.UNKNOWN:
+        case Orientation.UNKNOWN:
             return "Unknown"
-        case ScreenOrientation.Orientation.LANDSCAPE_LEFT:
+        case Orientation.LANDSCAPE_LEFT:
             return "Landscape Left"
-        case ScreenOrientation.Orientation.LANDSCAPE_RIGHT:
+        case Orientation.LANDSCAPE_RIGHT:
             return "Landscape Right"
-        case ScreenOrientation.Orientation.PORTRAIT_DOWN:
+        case Orientation.PORTRAIT_DOWN:
             return "Portrait Down"
-        case ScreenOrientation.Orientation.PORTRAIT_UP:
+        case Orientation.PORTRAIT_UP:
             return "Portrait Up"
         default:
             return "Not initialized"
