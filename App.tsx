@@ -4,10 +4,10 @@ import * as ScreenOrientation from 'expo-screen-orientation';
 import { StatusBar } from 'expo-status-bar';
 import { useEffect } from 'react';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
+import { HomeScreen } from './app';
+import { ProductDetails } from './app/details/details';
+import { ProductsScreen } from './app/products';
 import { SafeContainer } from './components/SafeContainer';
-import { HomeScreen } from './components/screens/HomeScreen';
-import { ProductDetails } from './components/screens/ProductDetails';
-import { ProductsScreen } from './components/screens/ProductsScreen';
 import { Product } from './components/Types';
 
 const Stack = createNativeStackNavigator()

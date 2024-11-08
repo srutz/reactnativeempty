@@ -1,14 +1,31 @@
-import { RouteProp, useRoute } from "@react-navigation/native";
+import { useLocalSearchParams } from "expo-router";
+import { useEffect, useState } from "react";
 import { ScrollView, Text, View } from "react-native";
 import * as Animatable from 'react-native-animatable';
 import { FlatList } from "react-native-gesture-handler";
-import { ScreenTypes } from "../../App";
-import { ImagePanel } from "../ImagePanel";
+import { ImagePanel } from "../../components/ImagePanel";
+import { Product } from "../../components/Types";
 
-export function ProductDetails() {
-    /* benutze route um an das übergebene Produkt zu gelangen */
-    const route = useRoute<RouteProp<ScreenTypes, "ProductDetails">>()
-    const product = route.params.product
+export default function ProductDetails() {
+    const [product, setProduct] = useState<Product>()
+
+    // productid aus den Search Params extrahieren
+    const { productid } = useLocalSearchParams<{ productid: string }>()
+
+    useEffect(() => {
+        (async () => {
+            const r = await fetch("https://dummyjson.com/products/" + encodeURIComponent(productid))
+            const d = await r.json() as Product
+            setProduct(d)
+        })()
+    }, [])
+
+    if (!product) {
+        return (
+            <Text>Produkt {productid} nicht vorhanden</Text>
+        )
+    }
+
     return (
         <ScrollView className="flex-1">
             <View className="flex flex-col p-2 m-3 bg-white rounded-xl border border-gray-300 shadow shadow-black">

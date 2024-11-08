@@ -1,13 +1,11 @@
 import { MaterialIcons } from "@expo/vector-icons";
-import { NavigationProp, useNavigation } from "@react-navigation/native";
 import { useEffect, useRef, useState } from "react";
 import { FlatList, Image, Pressable, RefreshControl, Text, View } from "react-native";
-import { ScreenTypes } from "../../App";
-import { Product, ProductsResponse } from "../Types";
+import { Product, ProductsResponse } from "../components/Types";
 
 async function delay(millis: number) { return new Promise(resolve => setTimeout(resolve, millis)) }
 
-export function ProductsScreen() {
+export default function ProductsScreen() {
     const PAGESIZE = 100
     const [products, setProducts] = useState<Product[]>([])
     const [total, setTotal] = useState(0)
@@ -74,11 +72,12 @@ export function ProductsScreen() {
     )
 }
 
+import { router } from "expo-router";
+
 /* Rendert das übergebene Product */
 function ProductsItem({ product }: { product: Product }) {
-    const nav = useNavigation<NavigationProp<ScreenTypes>>()
     const handleButton = () => {
-        nav.navigate("ProductDetails", { product: product })
+        router.push("/details/" + encodeURIComponent(product.id))
     }
     return (
         <View className="flex flex-row p-2 m-3 bg-white rounded-xl border border-gray-300 shadow shadow-black">
