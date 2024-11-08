@@ -10,7 +10,7 @@ import { useScreenOrientation } from "../../hooks/useScreenOrientation";
 import berlinBreit from "../../assets/berlinbreit.jpg";
 import berlinHoch from "../../assets/berlinhoch.jpg";
 
-import BottomSheet, { BottomSheetView } from "@gorhom/bottom-sheet";
+import { MyBottomSheet } from "../MyBottomSheet";
 
 
 
@@ -26,6 +26,9 @@ export function HomeScreen() {
 
     return (
         <View className="flex-1 flex flex-col justify-center items-center py-4">
+            <View className="mt-4 mb-2">
+                <Button title="Go to products" onPress={handleButton}></Button>
+            </View>
             <View className="w-full h-1 grow flex flex-col overflow-hidden">
                 {orientation == Orientation.LANDSCAPE_LEFT || orientation == Orientation.LANDSCAPE_RIGHT
                 ? <Animatable.Image 
@@ -36,16 +39,14 @@ export function HomeScreen() {
                     className="w-full flex-1" resizeMode="cover" source={berlinHoch} />
                 }
             </View>
-            <View className="mt-4 mb-2">
-                <Button title="Go to products" onPress={handleButton}></Button>
-            </View>
-            <BottomSheet>
-                <BottomSheetView style={{ flex: 1 }}>
-                    <View className="mt-4 mb-2">
-                        <Button title="Go to products" onPress={handleButton}></Button>
-                    </View>
-                </BottomSheetView>
-            </BottomSheet>
+            <MyBottomSheet height={24}>
+                <View className="mt-4 mb-2 self-center">
+                    <Button title="Impressum" onPress={handleButton}></Button>
+                </View>
+                <View className="mt-4 mb-2 self-center">
+                    <Button title="Kontakt" onPress={handleButton}></Button>
+                </View>
+            </MyBottomSheet>
         </View>
     )
 }
