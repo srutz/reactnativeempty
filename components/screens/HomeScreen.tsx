@@ -39,7 +39,7 @@ export function HomeScreen() {
                     className="w-full flex-1" resizeMode="cover" source={berlinHoch} />
                 }
             </View>
-            <MyBottomSheet height={24}>
+            <MyBottomSheet height={32}>
                 <View className="mt-4 mb-2 self-center">
                     <Button title="Impressum" onPress={handleButton}></Button>
                 </View>

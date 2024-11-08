@@ -25,9 +25,9 @@ export default function App() {
         <GestureHandlerRootView>
             <NavigationContainer>
                 <Stack.Navigator >
-                    <Stack.Screen name="Home" component={HomeScreen} />
-                    <Stack.Screen name="Products" component={ProductsScreen} />
-                    <Stack.Screen name="ProductDetails" component={ProductDetails} />
+                    <Stack.Screen name="Home" component={HomeScreen} options={ { headerShown: false }} />
+                    <Stack.Screen name="Products" component={ProductsScreen} options={ { headerShown: false }} />
+                    <Stack.Screen name="ProductDetails" component={ProductDetails} options={ { headerShown: false }} />
                 </Stack.Navigator>
             </NavigationContainer>
         </GestureHandlerRootView>

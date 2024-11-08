@@ -9,7 +9,7 @@ export function MyBottomSheet({ children, height = 32 }: { children: ReactNode, 
             <View className={"h-[" + height + "]"}></View>
             <BottomSheet snapPoints={[height, "50%"]}>
                 <BottomSheetView className="flex-1 flex flex-col">
-                    <View className="flex flex-col gap-2">
+                    <View className="flex flex-col gap-2 mt-2">
                         {children}
                     </View>
                 </BottomSheetView>
