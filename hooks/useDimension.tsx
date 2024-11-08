@@ -32,6 +32,5 @@ export function useDimension() {
             cleanupHandle.remove()
         }
     }, []) // wichtig, Dependency Array nicht vergessen
-
     return dimension
 }
