@@ -7,7 +7,6 @@ import { HomeScreen } from './components/screens/HomeScreen';
 import { ProductDetails } from './components/screens/ProductDetails';
 import { ProductsScreen } from './components/screens/ProductsScreen';
 import { Product } from './components/Types';
-import { useDimension } from './hooks/useDimension';
 
 const Stack = createNativeStackNavigator()
 
@@ -22,7 +21,6 @@ export default function App() {
     useEffect(() => {
         ScreenOrientation.unlockAsync()
     }, [])
-    useDimension()
     return (
         <GestureHandlerRootView>
             <NavigationContainer>
