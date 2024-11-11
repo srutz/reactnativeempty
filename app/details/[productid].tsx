@@ -22,7 +22,7 @@ export default function ProductDetails() {
 
     if (!product) {
         return (
-            <Text>Produkt {productid} nicht vorhanden</Text>
+            <Text></Text>
         )
     }
 

@@ -1,7 +1,9 @@
 import { MaterialIcons } from "@expo/vector-icons";
+import { router } from "expo-router";
 import { useEffect, useRef, useState } from "react";
 import { FlatList, Image, Pressable, RefreshControl, Text, View } from "react-native";
 import { Product, ProductsResponse } from "../components/Types";
+
 
 async function delay(millis: number) { return new Promise(resolve => setTimeout(resolve, millis)) }
 
@@ -71,8 +73,6 @@ export default function ProductsScreen() {
         </View>
     )
 }
-
-import { router } from "expo-router";
 
 /* Rendert das übergebene Product */
 function ProductsItem({ product }: { product: Product }) {
